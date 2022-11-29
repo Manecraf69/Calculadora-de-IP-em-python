@@ -1,51 +1,44 @@
-# Opção que mostra a tabela completa do / selecionado.
-def segunda_funcao():
+def funcao_subredes():
   host = 0
   primeiro_ip = host + 1
   divisor_total = 2 ** (int(mascara) - 24)
   broadcast = int(256 / divisor_total) - 1
   ultimo_ip = int(broadcast) - 1
+  num_hosts = int(256 / divisor_total - 2)
 
-  print("A máscara tem", divisor_total, "subredes no total.")
-  print("   Host    | Primeira IP disponivel " +
-        "| Último IP disponivel | Broadcast")
-  for i in range(divisor_total):
-      print(principal + str(host) + " |" + "     " 
-            + principal + str(primeiro_ip) + "     |"
-            + "     " + principal + str(ultimo_ip) + "     |"
-            + "     " + principal + str(broadcast))
-      host = host + int(256 / divisor_total)
-      primeiro_ip = host + 1
-      broadcast = host + int(256 / divisor_total) - 1
-      ultimo_ip = broadcast - 1
+  if func == 2: # Opção que mostra a tabela completa do / selecionado.
+    print("\033[1;92m*  A máscara tem", divisor_total, "subredes no total, com", num_hosts, "endereços hosts em cada uma delas.  *")
+    print("   Host    | Primeira IP disponivel | Último IP disponivel | Broadcast")
+    for i in range(divisor_total): # Laço for para que em looping cada subrede seja printada no terminal.
+        print("\033[1;92m" + principal + str(host) + " |" 
+              + "     " + principal + str(primeiro_ip) + "     |"
+              + "     " + principal + str(ultimo_ip) + "     |"
+              + "     " + principal + str(broadcast) + "\033[0;0m")
+        host = host + int(256 / divisor_total)
+        primeiro_ip = host + 1
+        broadcast = host + int(256 / divisor_total) - 1
+        ultimo_ip = broadcast - 1
 
-# Opção que mostra somente a subrede específica do IP selecionado.
-def terceira_funcao():
-  host = 0
-  primeiro_ip = host + 1
-  divisor_total = 2 ** (int(mascara) - 24)
-  broadcast = int(256 / divisor_total) - 1
-  ultimo_ip = int(broadcast) - 1
-
-  print("   Host    | Primeira IP disponivel " +
-        "| Último IP disponivel | Broadcast")
-  for i in range(divisor_total):
-    if host <= last and broadcast >= last:
-      print(principal + str(host) + " |"
-        + "     " + principal + str(primeiro_ip) + "     |"
-        + "     " + principal + str(ultimo_ip) + "     |"
-        + "     " + principal + str(broadcast))
-      host = host + int(256 / divisor_total)
-      broadcast = host + int(256 / divisor_total) - 1
-    else:
-      host = host + int(256 / divisor_total)
-      primeiro_ip = host + 1
-      broadcast = host + int(256 / divisor_total) - 1
-      ultimo_ip = broadcast - 1
+  elif func == 3: # Opção que mostra somente a subrede específica do IP selecionado.
+    print("\033[1;92m   Host    | Primeira IP disponivel | Último IP disponivel | Broadcast")
+    for i in range(divisor_total): # Laço for para que o código rode por todas as subredes e pare na específica selecionada.
+      if host <= last and broadcast >= last:
+        print(principal + str(host) + " |"
+          + "     " + principal + str(primeiro_ip) + "     |"
+          + "     " + principal + str(ultimo_ip) + "     |"
+          + "     " + principal + str(broadcast) + "\033[0;0m")
+        host = host + int(256 / divisor_total)
+        broadcast = host + int(256 / divisor_total) - 1
+      else:
+        host = host + int(256 / divisor_total)
+        primeiro_ip = host + 1
+        broadcast = host + int(256 / divisor_total) - 1
+        ultimo_ip = broadcast - 1
 
 # Seleção das funcionalidades do programa.
 ip = 0
 mascara = 0
+func = 0
 opcao = 0
 while opcao != "5":
   opcao = input("\033[1;95mDigite o número com a respectiva função que deseja trabalhar:\033[0;0m"
@@ -80,19 +73,21 @@ while opcao != "5":
       else:
         exc = 1
 
-    print("Informações prontas para serem trabalhadas!")
+    print("\033[1;96mInformações prontas para serem trabalhadas!\033[0;0m")
 
   if opcao == "2":
     if ip == 0:
       print("Faça a primeira opção antes!")
     else:
-      segunda_funcao()
+      func = 2
+      funcao_subredes()
 
   if opcao == "3":
     if ip == 0:
       print("Faça a primeira opção antes!")
     else:
-      terceira_funcao()
+      func = 3
+      funcao_subredes()
 
   if opcao == "4":
     if ip == 0:
@@ -120,7 +115,7 @@ while opcao != "5":
       else:
         tipo = "Público"
 
-      print("O IP selecionado tem classe", classe, "e tipo", tipo + ".")
+      print("\033[1;96mO IP selecionado tem classe", classe, "e tipo", tipo + ".\033[0;0m")
 
   if opcao == "5":
     print("Programa encerrado.")
