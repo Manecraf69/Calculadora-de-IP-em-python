@@ -52,17 +52,17 @@ while opcao != "6":
   if opcao == "1":
     exc = 0
     while exc != 1:
-      ip = input("Informe o IP (exemplo: 111.111.11.1): ")
+      ip = input("\033[1;34mInforme o IP (exemplo: 111.111.11.1): \033[0;0m")
 
       ip_dividido = ip.split(".") # Separa a string da resposta do usuário em octetos por meio dos pontos para verificar como inteiro.
       if len(ip_dividido) != 4:
-        print("IP inválido.")
+        print("\033[1;31mIP inválido.\033[0;0m")
         
       elif not all(oct.isdigit() for oct in ip_dividido): # Verificar se existe uma letra no endereço de IP.
-        print("IP inválido.") 
+        print("\033[1;31mIP inválido.\033[0;0m") 
 
       elif int(ip_dividido[0]) > 255 or int(ip_dividido[1]) > 255 or int(ip_dividido[2]) > 255 or int(ip_dividido[3]) > 255: # Verficar se existe um octeto superior a 255 endereços.
-        print("IP inválido.")
+        print("\033[1;31mIP inválido.\033[0;0m")
 
       else:
         exc = 1
@@ -74,15 +74,15 @@ while opcao != "6":
   if opcao == "2":
     exc = 0
     while exc != 1:
-      mascara = input(str("Coloque a máscara que deseja aplicar (de /24 até /30): "))
+      mascara = input(str("\033[1;34mColoque a máscara que deseja aplicar (de /24 até /30): \033[0;0m"))
 
       mascara = mascara.replace("/", "") # Tira a barra da resposta do usuário para funcionar como inteiro.
 
       if not mascara.isdigit(): # Verifica se a máscara contem somente números.
-        print("Máscara não suportada ou inexistente.")
+        print("\033[1;31mMáscara não suportada ou inexistente.\033[0;0m")
 
       elif int(mascara) < 24 or int(mascara) > 30: # Verifica se a máscara é suportada.
-        print("Máscara não suportada ou inexistente.")
+        print("\033[1;31mMáscara não suportada ou inexistente.\033[0;0m")
 
       else:
         exc = 1
@@ -91,21 +91,21 @@ while opcao != "6":
 
   if opcao == "3":
     if ip == 0 or mascara == 0:
-      print("Selecione IP e máscara antes!")
+      print("\033[1;33mSelecione IP e máscara antes!\033[0;0m")
     else:
       func = 2
       funcao_subredes()
 
   if opcao == "4":
     if ip == 0 or mascara == 0:
-      print("Selecione IP e máscara antes!")
+      print("\033[1;33mSelecione IP e máscara antes!\033[0;0m")
     else:
       func = 3
       funcao_subredes()
 
   if opcao == "5":
-    if ip == 0 or mascara == 0:
-      print("Selecione IP e máscara antes!")
+    if ip == 0:
+      print("\033[1;33mSelecione o IP antes!\033[0;0m")
     else:
       if int(ip_dividido[0]) <= 127:
         classe = "A"
